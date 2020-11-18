@@ -22,9 +22,10 @@ public class A1List extends List {
 
     public A1List Insert(int address, int size, int key)
     {
-        if (!this.sanity()) {
+        /*if (!this.sanity()) {
             System.out.println("Error");
-        }
+        }*/
+
         //  INV :- this is not tail sentinel
         if (this.next == null) {
             return null;
@@ -40,17 +41,19 @@ public class A1List extends List {
         newNextNode.next = oldNextNode;
         newNextNode.prev = this;
         oldNextNode.prev = newNextNode;
-        if (!this.sanity()) {
+
+        /*if (!this.sanity()) {
             System.out.println("Error");
-        }
+        }*/
         return newNextNode;
     }
 
     public boolean Delete(Dictionary d) 
     {
-        if (!this.sanity()) {
+        /*if (!this.sanity()) {
             System.out.println("Error");
-        }
+        }*/
+        
         A1List cur = this, toBeDeleted = null;
 
         // Forward Search
@@ -81,9 +84,9 @@ public class A1List extends List {
             toBeDeleted.next.prev = toBeDeleted.prev;
 
             
-            if (!this.sanity()) {
+            /*if (!this.sanity()) {
                 System.out.println("Error");
-            }
+            }*/
             return true;
         }
 
