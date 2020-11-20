@@ -24,6 +24,9 @@ public class A1DynamicMem extends DynamicMem {
     // Test your memory allocator thoroughly using Doubly Linked lists only (A1List.java).
 
     public int Allocate(int blockSize) {
+        if (blockSize <= 0) {
+            return -1;
+        }
         
         A1List freeBlk = (A1List)this.freeBlk;
         A1List allocBlk = (A1List)this.allocBlk;
@@ -31,8 +34,15 @@ public class A1DynamicMem extends DynamicMem {
 
         if (memoryBlk != null) {
             int address = memoryBlk.address, size = memoryBlk.size;
+
+            // freeBlk and allockBlk should have memory blocks with size > 0
+            
             allocBlk.Insert(address, blockSize, blockSize);
-            freeBlk.Insert(address+blockSize, size - blockSize, size - blockSize);
+            
+            if (size-blockSize > 0) {
+                freeBlk.Insert(address+blockSize, size - blockSize, size - blockSize);
+            }
+            
             freeBlk.Delete(memoryBlk);
             
             this.freeBlk = (Dictionary)freeBlk;
@@ -43,6 +53,9 @@ public class A1DynamicMem extends DynamicMem {
     } 
     
     public int Free(int startAddr) {
+        if (startAddr < 0) {
+            return -1;
+        }
         
         A1List freeBlk = (A1List)this.freeBlk;
         A1List allocBlk = (A1List)this.allocBlk;

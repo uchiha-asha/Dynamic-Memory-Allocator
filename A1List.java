@@ -136,6 +136,19 @@ public class A1List extends List {
         return this.next;
     }
 
+    // Utility Function to print the list
+    public void print() {
+        A1List cur = this; 
+        while (cur.prev != null) {
+            cur = cur.prev;
+        }
+        while (cur != null) {
+            System.out.print("("+cur.address+","+cur.size+","+cur.key+")    ");
+            cur = cur.next;
+        }
+        System.out.println("");
+    }
+
     public boolean sanity()
     {
         // INV :- None of the node of list (including sentinels) have both next and prev pointers to be null
