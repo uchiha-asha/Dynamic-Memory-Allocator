@@ -25,12 +25,9 @@ public class Driver{
                     default:
                         break;
                 }
-                /*System.out.println(command + " " + argument);
-                ((A1List)obj.freeBlk).print();
-                ((A1List)obj.allocBlk).print();*/
                 System.out.println(result);
             }
-        //    System.out.println("----------------------------------------------------------------");
+            
         }
     }
 }

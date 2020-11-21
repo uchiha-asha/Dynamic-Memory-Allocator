@@ -39,7 +39,6 @@ public abstract class List extends Dictionary {
         // returns an element with key >= k in the dictionary.  Returns null in case no such element found.
 
         // Can be used to implement the First Split Fit strategy with exact = false
-         
 
     public abstract List getFirst(); 
     public abstract List getNext(); 

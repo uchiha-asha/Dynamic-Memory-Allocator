@@ -157,6 +157,38 @@ public class A1List extends List {
             return false;
         }
 
+        // INV :- DLL does not contain cycle
+
+        // Check for cycle in the foreward part of this
+        A1List hare = this, tortoise = this;
+
+        while (true) {
+            if (hare.next == null || hare.next.next == null) { // hare is at tail sentinel or tail
+                break;
+            }
+            hare = hare.next.next;
+            tortoise = tortoise.next;
+            if (hare == tortoise) { // hare meets tortoise and hence contains a cycle
+                return false; 
+            }
+        }
+
+        hare = this; 
+        tortoise = this;
+
+        while (true) {
+            if (hare.prev == null || hare.prev.prev == null) { // hare is at head sentinel or head
+                break;
+            }
+            hare = hare.prev.prev;
+            tortoise = tortoise.prev;
+            if (hare == tortoise) { // hare meets tortoise and hence contains a cycle
+                return false; 
+            }
+        }
+
+
+
         A1List head = this.getFirst();
 
         // EMPTY LIST
@@ -178,10 +210,9 @@ public class A1List extends List {
             return false;
         }
 
+
+
         // INV :- node.next.prev == node 
-        // Above invariant will fail if list contain cycle as a node cannot have two prev or two next pointers
-
-
         A1List node = head;
 
         while (node.next != null) { // INV :- node != tailSentinel
