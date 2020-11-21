@@ -28,10 +28,8 @@ public class A1DynamicMem extends DynamicMem {
             return -1;
         }
         
-        A1List freeBlk = (A1List)this.freeBlk;
-        A1List allocBlk = (A1List)this.allocBlk;
-        A1List memoryBlk = freeBlk.Find(blockSize, false);
-
+        Dictionary memoryBlk = freeBlk.Find(blockSize, false);
+        
         if (memoryBlk != null) {
             int address = memoryBlk.address, size = memoryBlk.size;
 
@@ -44,9 +42,7 @@ public class A1DynamicMem extends DynamicMem {
             }
             
             freeBlk.Delete(memoryBlk);
-            
-            this.freeBlk = (Dictionary)freeBlk;
-            this.allocBlk = (Dictionary)allocBlk;
+        
             return address;
         }
         return -1;
@@ -57,9 +53,7 @@ public class A1DynamicMem extends DynamicMem {
             return -1;
         }
         
-        A1List freeBlk = (A1List)this.freeBlk;
-        A1List allocBlk = (A1List)this.allocBlk;
-        A1List memoryBlk;
+        Dictionary memoryBlk;
 
         for (memoryBlk = allocBlk.getFirst(); memoryBlk != null; memoryBlk = memoryBlk.getNext()) {
             if (memoryBlk.address == startAddr) {
@@ -71,8 +65,6 @@ public class A1DynamicMem extends DynamicMem {
             freeBlk.Insert(memoryBlk.address, memoryBlk.size, memoryBlk.size);
             allocBlk.Delete(memoryBlk);
             
-            this.freeBlk = (Dictionary)freeBlk;
-            this.allocBlk = (Dictionary)allocBlk;
             return 0;
         }
 

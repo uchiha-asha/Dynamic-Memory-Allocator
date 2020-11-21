@@ -7,13 +7,15 @@ public class Driver{
         while(numTestCases-->0){
             int size;
             size = sc.nextInt();
-            A1DynamicMem obj = new A1DynamicMem(size);
+            A1DynamicMem obj = new A1DynamicMem(size, 1);
             int numCommands = sc.nextInt();
+            // System.out.println(size);
             while(numCommands-->0) {
                 String command;
                 command = sc.next();
                 int argument;
                 argument = sc.nextInt();
+                // System.out.println(command + " " + argument);
                 int result = -5;
                 switch (command) {
                     case "Allocate":
@@ -27,7 +29,7 @@ public class Driver{
                 }
                 System.out.println(result);
             }
-            
+            // System.out.println("--------------------------------");
         }
     }
 }

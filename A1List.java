@@ -83,7 +83,8 @@ public class A1List extends List {
             toBeDeleted.prev.next = toBeDeleted.next;
             toBeDeleted.next.prev = toBeDeleted.prev;
 
-            
+            toBeDeleted = null; // Make toBeDeleted eligible for garbage collector
+
             /*if (!this.sanity()) {
                 System.out.println("Error");
             }*/
@@ -136,7 +137,7 @@ public class A1List extends List {
         return this.next;
     }
 
-    // Utility Function to print the list
+    /*// Utility Function to print the list
     public void print() {
         A1List cur = this; 
         while (cur.prev != null) {
@@ -147,7 +148,7 @@ public class A1List extends List {
             cur = cur.next;
         }
         System.out.println("");
-    }
+    }*/
 
     public boolean sanity()
     {
