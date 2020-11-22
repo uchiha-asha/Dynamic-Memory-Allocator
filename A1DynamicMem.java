@@ -29,13 +29,13 @@ public class A1DynamicMem extends DynamicMem {
         }
         
         Dictionary memoryBlk = freeBlk.Find(blockSize, false);
-        
+
         if (memoryBlk != null) {
             int address = memoryBlk.address, size = memoryBlk.size;
 
             // freeBlk and allockBlk should have memory blocks with size > 0
             
-            allocBlk.Insert(address, blockSize, blockSize);
+            allocBlk.Insert(address, blockSize, address);
             
             if (size-blockSize > 0) {
                 freeBlk.Insert(address+blockSize, size - blockSize, size - blockSize);

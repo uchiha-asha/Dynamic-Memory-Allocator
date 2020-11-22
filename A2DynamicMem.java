@@ -19,6 +19,53 @@ public class A2DynamicMem extends A1DynamicMem {
     //use address to break ties i.e. if there are multiple blocks of the same size, order them by address. Now think outside 
     //the scope of the allocation problem and think of handling tiebreaking in blocks, in case key is neither of the two. 
     public void Defragment() {
+
+        // Create new dictionary with address as key
+        Dictionary new_freeBlk;
+        if (this.type == 2) {
+            new_freeBlk = new BSTree();
+        } 
+        else if (this.type == 3) {
+            new_freeBlk = new AVLTree();
+        } 
+        else {
+            return;
+        }
+
+        for (Dictionary d = this.freeBlk.getFirst(); d != null; d = d.getNext()) {
+            new_freeBlk.Insert(d.address, d.size, d.address);
+        }
+
+        // Defragmentation
+        Dictionary cur = new_freeBlk.getFirst();
+
+        while (cur != null) {
+
+            Dictionary cur_next = cur.getNext();
+            if (cur_next == null) {
+                break;
+            }
+            if (cur.address+cur.size == cur_next.address) {
+                // Remove contiguous blocks from this.freeBlk
+                this.freeBlk.Delete(cur);
+                this.freeBlk.Delete(cur_next);
+
+                // Merge contiguous blocks
+                cur.size += cur_next.size;
+
+                // Insert merged block to this.freeBlk
+                this.freeBlk.Insert(cur.address, cur.size, cur.size);
+
+                // cur_next is now merged into cur, so, show it the gates to hell :-D
+                new_freeBlk.Delete(cur_next);
+            }
+            else {
+                cur = cur.getNext();
+            }
+        }
+        // Delete new dictionary
+        new_freeBlk = null;
+
         return ;
     }
 }

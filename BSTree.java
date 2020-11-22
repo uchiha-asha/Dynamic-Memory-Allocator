@@ -1,6 +1,9 @@
 // Class: Implementation of BST in A2
 // Implement the following functions according to the specifications provided in Tree.java
 
+import java.util.HashSet;
+import java.util.Stack;
+
 public class BSTree extends Tree {
 
     private BSTree left, right;     // Children.
@@ -182,9 +185,104 @@ public class BSTree extends Tree {
         return null;
     }
 
+    // If root sentinel exist, then, return root sentinel, otherwise, return null
+    private BSTree rootExist()
+    {
+        HashSet<BSTree> h = new HashSet<BSTree>();
+
+        // Find root sentinel and check if this path from root to "this" is cycle or not
+        BSTree cur = this;
+        while (cur.parent != null) {
+            if (h.contains(cur)) {
+                return null;
+            }
+            h.add(cur);
+            cur = cur.parent;
+        }
+
+        return cur;
+    }
+
+    // Function to check cycle in subtree rooted at "this"
+    private boolean containCycle() 
+    {
+        HashSet<BSTree> h = new HashSet<BSTree>();
+        Stack<BSTree> s = new Stack<BSTree>();
+        
+        // DFS (preorder traversal)
+        while (!s.empty()) {
+            BSTree cur = s.pop();
+            if (h.contains(cur)) {
+                return true;
+            }
+            h.add(cur);
+            if (cur.right != null) {
+                s.push(cur.right);
+            }
+            if (cur.left != null) {
+                s.push(cur.left);
+            }
+        }
+        return false;
+    }
+
+    // Function to check BST order property and BST structural property
+    private boolean checkBST()
+    {
+        if (this.left != null) {
+            if (this.left.parent != this) {
+                return false;
+            }
+            if (this.left.key > this.key) {
+                return false;
+            }
+            if (!this.left.checkBST()) {
+                return false;
+            }
+        }
+
+        if (this.right != null) {
+            if (this.right.parent != this) {
+                return false;
+            }
+            if (this.right.key <= this.key) {
+                return false;
+            }
+            if (!this.right.checkBST()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public boolean sanity()
     { 
-        return false;
+        BSTree root = this.rootExist();
+
+        if (root == null) {
+            return false;
+        }
+
+        // INV :- root.left == null
+        if (root.left != null) {
+            return false;
+        }
+
+        // INV :- BST does not contains cycle
+        if (root.containCycle()) {
+            return false;
+        }
+
+        // INV :- BST follows structure and order property
+        // Order property :- keys in left subtree <= root.key < key in right subtree
+        // Structural property :- node.left.parent == node and node.right.parent == node
+
+        if (!root.checkBST()) {
+            return false;
+        }
+
+        return true;
     }
 
 }
