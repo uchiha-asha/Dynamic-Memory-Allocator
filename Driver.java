@@ -33,12 +33,9 @@ public class Driver{
                 if (!command.equals("Defragment")) {
                     System.out.println(result);
                 }
-                if (numCommands>290 && numCommands < 300) {
-                    // obj.freeBlk.print();
-                    // obj.allocBlk.print();
-                }
-                    
                 
+                // obj.freeBlk.print();
+                // obj.allocBlk.print();
                 
             }
             // System.out.println("--------------------------------");

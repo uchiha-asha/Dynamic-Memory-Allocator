@@ -93,8 +93,6 @@ public class BSTree extends Tree {
         }
         
         while (cur != null) {
-            // if (e.key == 6 && e.address==62)
-            //     System.out.println(cur.address+" "+cur.size);
 
             if (cur.key == e.key && cur.address == e.address) {
 
@@ -258,7 +256,7 @@ public class BSTree extends Tree {
             if (this.left.parent != this) {
                 return false;
             }
-            if (this.left.key > this.key) {
+            if (this.left.key > this.key || (this.left.key == this.key && this.left.address > this.address)) {
                 return false;
             }
             if (!this.left.checkBST()) {
@@ -270,7 +268,7 @@ public class BSTree extends Tree {
             if (this.right.parent != this) {
                 return false;
             }
-            if (this.right.key <= this.key) {
+            if (this.right.key < this.key || (this.right.key == this.key && this.right.address < this.address)) {
                 return false;
             }
             if (!this.right.checkBST()) {
