@@ -44,4 +44,14 @@ public abstract class Dictionary {
 
      public abstract boolean sanity();
           // Checks the sanity of the dictionary and returns true if sane, false otherwise
+
+     public void print() {
+        Dictionary cur = this.getFirst(); 
+        
+        while (cur != null) {
+            System.out.print("("+cur.address+","+cur.size+","+cur.key+")    ");
+            cur = cur.getNext();
+        }
+        System.out.println("");
+    }
 }

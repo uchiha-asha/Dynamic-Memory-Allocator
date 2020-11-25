@@ -7,13 +7,13 @@ public class Driver{
         while(numTestCases-->0){
             int size;
             size = sc.nextInt();
-            A1DynamicMem obj = new A1DynamicMem(size, 1);
+            A2DynamicMem obj = new A2DynamicMem(size, 2);
             int numCommands = sc.nextInt();
             // System.out.println(size);
             while(numCommands-->0) {
                 String command;
                 command = sc.next();
-                int argument;
+                int argument=-1;
                 argument = sc.nextInt();
                 // System.out.println(command + " " + argument);
                 int result = -5;
@@ -24,10 +24,22 @@ public class Driver{
                     case "Free":
                         result = obj.Free(argument);
                         break;
+                    case "Defragment":
+                        obj.Defragment();
+                        break;
                     default:
                         break;
                 }
-                System.out.println(result);
+                if (!command.equals("Defragment")) {
+                    System.out.println(result);
+                }
+                if (numCommands>290 && numCommands < 300) {
+                    // obj.freeBlk.print();
+                    // obj.allocBlk.print();
+                }
+                    
+                
+                
             }
             // System.out.println("--------------------------------");
         }

@@ -47,8 +47,8 @@ public class A2DynamicMem extends A1DynamicMem {
             }
             if (cur.address+cur.size == cur_next.address) {
                 // Remove contiguous blocks from this.freeBlk
-                this.freeBlk.Delete(cur);
-                this.freeBlk.Delete(cur_next);
+                this.freeBlk.Delete(new AVLTree(cur.address, cur.size, cur.size)); 
+                this.freeBlk.Delete(new AVLTree(cur_next.address, cur_next.size, cur_next.size));
 
                 // Merge contiguous blocks
                 cur.size += cur_next.size;

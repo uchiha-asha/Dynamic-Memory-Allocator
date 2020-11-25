@@ -31,6 +31,9 @@ public class BSTree extends Tree {
 
     public BSTree Insert(int address, int size, int key) 
     { 
+        /*if (!this.sanity()) {
+            System.out.println("Error");
+        }*/
         BSTree cur = this.getRootSentinel();
         if (cur.right == null) {
             cur.right = new BSTree(address, size, key);
@@ -39,7 +42,7 @@ public class BSTree extends Tree {
         }
         cur = cur.right;
         while (true) {
-            if (key <= cur.key) {
+            if (key < cur.key || (key == cur.key && address < cur.address)) {
                 if (cur.left == null) {
                     cur.left = new BSTree(address, size, key);
                     cur.left.parent = cur;
@@ -81,12 +84,18 @@ public class BSTree extends Tree {
 
     public boolean Delete(Dictionary e)
     { 
+        /*if (!this.sanity()) {
+            System.out.println("Error");
+        }*/
         BSTree cur = this.getRootSentinel().right;
         if (cur == null) {
             return false;
         }
         
         while (cur != null) {
+            // if (e.key == 6 && e.address==62)
+            //     System.out.println(cur.address+" "+cur.size);
+
             if (cur.key == e.key && cur.address == e.address) {
 
                 if (cur.left == null && cur.right == null) {
@@ -109,6 +118,7 @@ public class BSTree extends Tree {
                     cur = null; // Making cur eligible for garbage constructor
                     return true;
                 }
+
                 else {  // cur.left != null and cur.right != null
                     BSTree succ = cur.right.getMin();
                     cur.assignValues(succ);
@@ -117,14 +127,14 @@ public class BSTree extends Tree {
                 }
 
             }
-            else if (e.key <= cur.key) {
+            else if (e.key < cur.key || (e.key==cur.key && e.address < cur.address)) {
                 cur = cur.left;
             }
             else {
                 cur = cur.right;
             }
         }
-
+        
         return false;
     }
         
@@ -135,7 +145,16 @@ public class BSTree extends Tree {
 
         while (cur != null) {
             if (cur.key == key) {
-                return cur;
+                if (ans == null) {
+                    ans = cur;
+                } 
+                else if (ans.key > key) {
+                    ans = cur;
+                }
+                else if (ans.address > cur.address) {
+                    ans = cur;
+                }
+                cur = cur.left;
             }
             else if (cur.key < key) {
                 cur = cur.right;
@@ -148,14 +167,15 @@ public class BSTree extends Tree {
                     else if (ans.key > cur.key) {
                         ans = cur;
                     }
+                    else if (ans.key == cur.key && ans.address > cur.address) {
+                        ans = cur;
+                    }
                     cur = cur.left;
                 }
             }
         }
-        if (!exact) {
-            return ans;
-        }
-        return null;
+       
+        return ans;
     }
 
     public BSTree getFirst()
@@ -171,15 +191,20 @@ public class BSTree extends Tree {
     public BSTree getNext()
     { 
         if (this.parent == null) {
-            return this.right;
+            return null;
         }
 
         if (this.right != null) {
             return this.right.getMin();
         }
 
-        if (this.isLeft()) {
-            return this.parent;
+        BSTree cur = this;
+        while (cur.parent != null && !cur.isLeft()) {
+            cur = cur.parent;
+        }
+        
+        if (cur.parent != null) {
+            return cur.parent;
         }
 
         return null;

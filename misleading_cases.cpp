@@ -22,12 +22,13 @@ int main(int argc, char** argv) {
 	cout << argv[1] << " " << argv[2] << " " << argv[3] << endl;
 	int lineNum = 0;
 	string line;
-
+	
 	while (getline(test, line)) {
 
 		lineNum += 1;
 		istringstream iss(line);
 
+		if (line[0] == 'D') continue;
 		int temp;
 		if (!(iss >> temp)) {
 
@@ -35,8 +36,9 @@ int main(int argc, char** argv) {
 			if ((output1 >> o1) && (output2 >> o2)) {
 			//	cout << temp << " " << o1 << " " << o2 << endl;
 				if (o1 != o2) {
-					cout << "Output not matched for input at Line " << lineNum << 
-							"          " << line << "          " << o1 << " " << o2 << endl;
+					cout << "Output not matched for input at Line ";
+					cout << lineNum << "          "  << line + "          " << o1 << " " << o2 << endl;
+					break;
 				}
 			} else {
 				cout << "cannot compare output of line " << lineNum << endl;
