@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class Driver{
     public static void main(String args[]){
+        long startTime = System.nanoTime();
         int numTestCases;
         Scanner sc = new Scanner(System.in);
         numTestCases = sc.nextInt();
@@ -15,7 +16,7 @@ public class Driver{
                 command = sc.next();
                 int argument=-1;
                 argument = sc.nextInt();
-                // System.out.println(command + " " + argument);
+                  // System.out.println(command + " " + argument);
                 int result = -5;
                 switch (command) {
                     case "Allocate":
@@ -31,14 +32,15 @@ public class Driver{
                         break;
                 }
                 if (!command.equals("Defragment")) {
-                    System.out.println(result);
+                    // System.out.println(result);
                 }
                 
                 // obj.freeBlk.print();
-                // obj.allocBlk.print();
+                // obj.allocBlk.print();  
                 
             }
-            // System.out.println("--------------------------------");
         }
+        long stopTime = System.nanoTime();
+        System.out.println((stopTime - startTime)/1000000000.0);   
     }
 }
