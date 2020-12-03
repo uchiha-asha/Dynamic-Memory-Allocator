@@ -17,3 +17,6 @@ Here, the system will be allocating memory using a variant of First Fit and Best
 The main functionality of the Memory Allocator will be To allocate free memory and To free allocated memory. In order to solve the issue of Fragmentation, the system will also Defragment the free memory. It basically searches for consecutive free blocks and merges them into one bigger block.
 
 NOTE - Above points were taken from assignment statement.
+
+### Why do we need different data structures?
+The time taken by allocation, free and defragment operation is greatly affected by the type of data structure we use. Though inserting blocks in DLL is an O(1) operation but deleting blocks will take O(n) time. Efficient implementation of Defragment will require sorting the DLL. BSTs allows to store blocks in sorted order and hence, we can implement best fit startegy but insertion, deletion in BSTs take O(n) time in worst case. AVL Trees provide all the benefits of BSTs and also allows O(log(n)) insertion and deletion. Clearly, a system having large memory will require AVL Tree implementation for efficient memory allocation.
